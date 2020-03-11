@@ -19,17 +19,17 @@
 
 
       <router-link to="/" class="navbar-item" active-class="is-current" exact>Home</router-link>
-      <router-link to="/game" class="navbar-item" active-class="is-current">Private Feed</router-link>
+      <router-link to="/privatefeed" class="navbar-item" active-class="is-current">Private Feed</router-link>
       <router-link to="/about" class="navbar-item" active-class="is-current">About</router-link>
 
       <div class="navbar-item has-dropdown is-hoverable">
         <a class="navbar-link">
-          DropDown
+          More
         </a>
 
         <div class="navbar-dropdown">
           <a class="navbar-item">
-            Information
+            About
           </a>
           <a class="navbar-item">
             Jobs
@@ -48,11 +48,11 @@
     <div class="navbar-end">
       <div class="navbar-item">
         <div class="buttons">
-          <a class="button is-primary">
+          <a class="button is-primary" href="/signup">
             <strong>Sign up</strong>
           </a>
           <a class="button is-primary" href="/login">
-            Log in
+            <strong>Login in</strong>
           </a>
         </div>
       </div>

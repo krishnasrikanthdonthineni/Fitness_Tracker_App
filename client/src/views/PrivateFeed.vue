@@ -3,7 +3,7 @@
       <div class="card">
         <div class="card-content">
             <h1 class="title is-1">
-                Game Page
+                Private Feed
             </h1>
         </div>
       </div>
@@ -25,6 +25,7 @@
 
 <script>
 
+import { Players, PictureDeck, CurrentPicture, Init } from "../models/Game";
 
 
 export default {

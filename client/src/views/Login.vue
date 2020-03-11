@@ -1,7 +1,9 @@
 <template>
+
   <form class="container" @submit.prevent="login">
       {{error}}
    
+
   <div class="hero-body">
     <div class="container">
       <div class="columns is-centered">
@@ -38,6 +40,11 @@
               </button>
                  </p>
             </div>
+            <p class="has-text-grey">
+                        <a href="/signup">Sign Up</a> &nbsp;·&nbsp;
+                        <a href="../">Forgot Password</a> &nbsp;·&nbsp;
+                        <a href="../">Need Help?</a>
+                    </p>
          
         </div>
       </div>
@@ -62,7 +69,7 @@ export default {
         login(){
             try {
                 Login(this.email, this.password);
-                this.$router.push('/game');
+                this.$router.push('/privatefeed');
             } catch (error) {
                 this.error = error;
             }
