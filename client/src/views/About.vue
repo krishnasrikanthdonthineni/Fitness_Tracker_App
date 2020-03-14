@@ -1,15 +1,20 @@
 <template>
 
+<section class="hero is-fullheight">
+        <div class="hero-head">
+            <the-navbar></the-navbar>
+        </div>
+        <div class="hero-body">
+            <div class="container">
+                <dashboard/>
+            </div>
+        </div>
+
+        <div class="hero-foot">
+            <tab-navigation></tab-navigation>
+        </div>
+</section>
 
 
-  <div id="app-5">
-    <P>
-      1
-      2     
-      3
-      4
-      </p>
-  <p>{{ message }}</p>
-  <button v-on:click="reverseMessage">Reverse Message</button>
-</div>
+
 </template>
