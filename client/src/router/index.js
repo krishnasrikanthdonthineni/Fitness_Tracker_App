@@ -15,6 +15,11 @@ const routes = [
   { path: '/privatefeed', name: 'PrivateFeed', component: PrivateFeed , meta: { isSecret: true } },
   { path: '/login', name: 'Login', component: Login },
   { path: '/signup', name: 'Signup', component: Signup },
+  {
+    path: '/User',
+    name: 'User',
+    component: ()=> import('../views/User.vue')
+  },
   
   {
     path: '/about',

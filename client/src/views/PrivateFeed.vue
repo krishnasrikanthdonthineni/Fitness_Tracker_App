@@ -1,53 +1,24 @@
 <template>
-  <div class="container">
-      <div class="card">
-        <div class="card-content">
-            <h1 class="title is-1">
-                Private Feed
-            </h1>
-        </div>
+  <div class="section">
+    <div class="container">
+      <div class="columns">
+        <div class="column is-two-thirds"><Feed/></div>
+        <div class="column is-one-third"><FoodAndExerciseInput/></div>
       </div>
-
-      <div class="card">
-      <div class="card-content">
-        <ul>
-          <li v-for="player in Players" :key="player.Name">
-            {{player.Name}} {{player.Score}}
-          </li>
-        </ul>
-      </div>
-
-      <img :src="CurrentPicture"  class="card-image"/>
+      
     </div>
-
   </div>
 </template>
 
 <script>
-
-import { Players, PictureDeck, CurrentPicture, Init } from "../models/Game";
-
-
+import Feed from '../components/Feed'
+import FoodAndExerciseInput from '../components/FoodAndExerciseInput'
 export default {
-  name: 'Home',
-
-   created(){
-    Init();
-  },
-
-  data:()=>({
-    Players,
-    PictureDeck,
-    CurrentPicture
-  }),
+  name: "Home",
   components: {
-    
+    Feed, FoodAndExerciseInput
   }
-}
+};
 </script>
-
-<style >
-  img.card-image {
-    width: 100%
-  }
+<style>
 </style>
