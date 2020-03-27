@@ -7,7 +7,7 @@
       </div>
     </div>
     <div class="field">
-      <label for class="label">Calories:</label>
+      <label class="label">Calories:</label>
       <div class="control">
         <input type="text" class="input" />
       </div>
@@ -21,9 +21,14 @@
 </template>
 
 <script>
+import {mapGetters} from 'vuex'
 export default {
-    name: "FoodInputComponent"
-}
+    name: "FoodInputComponent",
+  computed: {
+    ...mapGetters(['getPostVisibility']),
+  }
+};
+
 </script>
 
 <style>
