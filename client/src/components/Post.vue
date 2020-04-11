@@ -10,9 +10,13 @@
           <div class="media-content">
             <div class="content">
               <p>
-                <strong>{{`${post.user.firstName} ${post.user.lastName}`}} </strong>
-                <small>@{{post.user.username}}</small>
-                <small>31m</small>
+               <strong class="pr-4px">{{`${post.user.firstName} ${post.user.lastName}`}}</strong>
+                <small class="pr-4px">@{{post.user.username}}</small>
+                <small class="pr-4px">31m</small>
+                <small class="pr-4px"><span class="icon is-small"><i :class="getInputTypes[post.input.type].icon"/></span></small>
+                <small class="pr-4px">{{post.input.name}}</small>
+                <small class="pr-4px">{{post.input.value}}</small>
+                <small class="pr-4px">{{getInputTypes[post.input.type].sufix}}</small>
                 <br/><strong>{{post.title}}</strong>
                 <br />{{post.text}}
               </p>
@@ -21,7 +25,7 @@
               <div class="level-left">
                 <a class="level-item" aria-label="like" @click="likeButtonClick()">
                   <span class="icon is-small">
-                    <i :class="`${post.likedByCurrentUser ? 'fas' : 'far'} fa-heart`" aria-hidden="true"></i>
+                    <i :class="`${post.likes.includes(getCurrentUserId) ? 'fas' : 'far'} fa-heart`" aria-hidden="true"></i>
                   </span>
                 </a>
               </div>
@@ -33,7 +37,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions,mapGetters } from 'vuex'
 export default {
     name: 'Post',
     props:{
@@ -47,6 +51,9 @@ export default {
         likeButtonClick(){
             this.likeDislikePost(this.post)
         },
+      },
+    computed:{
+      ...mapGetters(['getCurrentUserId', 'getInputTypes']),
     }
 }
 </script>
@@ -54,5 +61,8 @@ export default {
 <style>
 .w-100{
     width: 100%;
+}
+.pr-4px{
+  padding-right: 4px;
 }
 </style> 

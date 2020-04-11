@@ -52,7 +52,7 @@
             <span class="icon">
               <i class="fas fa-user"></i>
             </span>
-            <span>Logged in user</span>
+            <span>{{isLoggedIn ? getCurrentUserFullName : ''}}</span>
           </a>
           <div class="navbar-dropdown">
             <router-link to="/User" class="navbar-item">My profile</router-link>
@@ -66,7 +66,10 @@
 
 <script>
 export default {
-  name: "Navbar"
+  name: "Navbar",
+  computed:{
+    ...mapGetters(['getCurrentUserFullName', 'isLoggedIn']),
+  }
 };
 </script>
 
