@@ -1,11 +1,20 @@
+require('dotenv/config')
+require('./mongooseSetup')
+
 const express = require('express');
+const bodyParser = require('body-parser')
 
 const quoteCards = require('./game/quoteCards');
 
-const app = express();
-const port = 3000;
-app
-    .get('/', (req, res) => res.send('This class is awesome!') )
-    .get('/game/quoteCards', (req, res) => res.send(quoteCards) );
+//app setup
+const app = express()
 
-app.listen(port, () => console.log(`Listening at http://localhost:${port}`));
+app.use(bodyParser.json())
+//Setting up routes
+app.use('/api', require('./controller/api/posts'))
+app.use('/api', require('./controller/api/users'))
+app.use('/api', require('./controller/api/inputs'))
+
+app.listen(process.env.port || 5000,() => {
+    console.log('Server is up')
+})
