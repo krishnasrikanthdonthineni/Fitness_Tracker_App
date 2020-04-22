@@ -23,14 +23,10 @@
         <router-link class="navbar-item" to="/">Home</router-link>
          <router-link to="/privatefeed" class="navbar-item" active-class="is-current">Private Feed</router-link>
        
-        <router-link class="navbar-item" to="/">About</router-link>
-        <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link">More</a>
-          <div class="navbar-dropdown">
-            <a href="/" class="navbar-item">1</a>
-            <a href="/" class="navbar-item">2</a>
-          </div>
-        </div>
+        <router-link class="navbar-item" to="/About">About</router-link>
+        <router-link class="navbar-item" to="/BmiCalculator">BMI Calculator</router-link>
+
+
         <div class="navbar-item">
           <div class="field w-24">
             <div class="control">
