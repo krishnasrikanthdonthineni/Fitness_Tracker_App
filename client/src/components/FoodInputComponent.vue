@@ -7,6 +7,30 @@
       </div>
     </div>
     <div class="field">
+      <label for class="label">Type of food:</label>
+    </div>
+    <div class="field">
+      <div class="control is-expanded">
+        <div class="select w-100">
+          <select class="w-100">
+            <option>Not vegan</option>
+            <option>Vegan</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="field">
+      <label class="label">How much food:</label>
+    </div>
+    <div class="field has-addons">
+      <div class="control is-expanded">
+        <input type="text" class="input" v-model="input.value" />
+      </div>
+      <p class="control">
+        <a class="button is-static">grams</a>
+      </p>
+    </div>
+    <div class="field">
       <label class="label">Calories:</label>
       <div class="control">
         <input type="text" class="input" v-model="input.value"/>
@@ -83,7 +107,7 @@ export default {
           this.infoModalData.text = "An error happened";
         }
       if (this.share) {
-        if(!res) this.infoModalData.visible = true;
+        if (!res) this.infoModalData.visible = true;
         else this.shareModalVisible = true;
         }
       if (!this.share) {
@@ -96,4 +120,7 @@ export default {
 </script>
 
 <style>
+.w-100 {
+  width: 100%;
+}
 </style>
