@@ -1,10 +1,9 @@
 require('dotenv/config')
-require('./mongooseSetup')
+require('./data-access/mongooseSetup')
 
 const express = require('express');
 const bodyParser = require('body-parser')
 
-const quoteCards = require('./game/quoteCards');
 
 //app setup
 const app = express()
