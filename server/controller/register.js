@@ -47,7 +47,7 @@ const route = '/register'
                 email: req.body.email,
                 password: await bcrypt.hash(req.body.password)
             })
-            if(req.file) user.picture_id = req.file.id
+            if (req.file) user.picture_id = req.file.id
 
         
             user.save().then(() => {
@@ -58,5 +58,28 @@ const route = '/register'
             })
         }
 })
+
+//@route POST /register/is-username-taken
+//@desc Checks to see if username is taken
+router.post(`${route}/is-username-taken`, (req, res) => {
+    User.findOne({
+        username: req.body.username
+    }).lean().exec().then(data => {
+        if (data) return res.json({ isTaken: true })
+        else return res.json({ isTaken: false })
+    }).catch(err => res.status(400).json({ error: err.message }))
+})
+
+//@route POST /register/is-email-taken
+//@desc Checks to see if email is taken
+router.post(`${route}/is-email-taken`, (req, res) => {
+    User.findOne({
+        email: req.body.email
+    }).lean().exec().then(data => {
+        if (data) return res.json({ isTaken: true })
+        else return res.json({ isTaken: false })
+    }).catch(err => res.status(400).json({ error: err.message }))
+})
+
 
 module.exports = router  
