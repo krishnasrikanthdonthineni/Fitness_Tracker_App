@@ -1,83 +1,88 @@
 <template>
-
-  <form class="container" @submit.prevent="login">
-      {{error}}
-   
-
-  <div class="hero-body">
-    <div class="container">
-      <div class="columns is-centered">
-        <div class="column is-5-tablet is-4-desktop is-3-widescreen">
-   
-            <div class="field">
-              <label for="" class="label">Email</label>
-              <div class="control has-icons-left">
-                <input type="email" placeholder="krishna@gmail.com" class="input" required v-model="email">
-                <span class="icon is-small is-left">
-                  <i class="fa fa-envelope"></i>
-                </span>
-              </div>
+  <div class="section">
+    <div class="container sign-up-container">
+      <form ref="signInForm">
+      <div class="panel">
+        <p class="panel-heading">Sign up</p>
+        <div class="panel-block">
+          <div class="field">
+            <label class="label">Username</label>
+            <div class="control has-icons-left">
+               <input type="text" :class="`input ${$v.credentials.username.$invalid ? 'is-danger' : ''}`" placeholder="Your username" v-model.trim="credentials.username"/>
+              <span class="icon is-small is-left">
+                <i class="fas fa-user"></i>
+              </span>
+              <p v-if="!$v.credentials.username.required" class="help is-danger">Field is required</p>
             </div>
-            <div class="field">
-              <label for="" class="label">Password</label>
-              <div class="control has-icons-left">
-                <input type="password" placeholder="*******" class="input" required v-model="password">
-                <span class="icon is-small is-left">
-                  <i class="fa fa-lock"></i>
-                </span>
-              </div>
+          </div>
+        </div>
+        <div class="panel-block">
+          <div class="field">
+            <label class="label">Password</label>
+            <div class="control has-icons-left">
+              <input type="password" :class="`input ${$v.credentials.password.$invalid ? 'is-danger' : ''}`" placeholder="Your password" v-model.trim="credentials.password"/>
+              <span class="icon is-small is-left">
+                <i class="fas fa-lock"></i>
+              </span>
+              <p v-if="!$v.credentials.password.required" class="help is-danger">Field is required</p>
             </div>
-            <div class="field">
-              <label for="" class="checkbox">
-                <input type="checkbox">
-               Remember me
-              </label>
+          </div>
+        </div>
+        <div class="panel-block">
+          <div class="field">
+            <div class="control">
+              <a class="button is-primary w-100" :disabled="$v.credentials.$invalid" @click="loginBtnClicked()">Login</a>
+              <p v-if="wrongCredentials" class="help is-danger">Username or password are wrong</p>
             </div>
-            <div class="field">
-                <p class="control">
-              <button class="button is-success">
-                Login
-              </button>
-                 </p>
-            </div>
-            <p class="has-text-grey">
-                        <a href="/signup">Sign Up</a> &nbsp;·&nbsp;
-                        <a href="../">Forgot Password</a> &nbsp;·&nbsp;
-                        <a href="../">Need Help?</a>
-                    </p>
-         
+          </div>
         </div>
       </div>
+      </form>
     </div>
   </div>
-
-  </form>
 </template>
-
 <script>
-import { Login } from "../models/Users";
-
+import { mapActions } from 'vuex'
+import {
+  required
+} from "vuelidate/lib/validators";
 export default {
-    data(){
-        return {
-            email: '',
-            password: '',
-            error: ''
-        }
-    },
-    methods: {
-        login(){
-            try {
-                Login(this.email, this.password);
-                this.$router.push('/privatefeed');
-            } catch (error) {
-                this.error = error;
-            }
-        }
+   name: "SignIn",
+  data(){
+    return{
+      credentials:{
+        username: null,
+        password: null
+      },
+      wrongCredentials: false
     }
-}
+  },
+  validations:{
+    credentials:{
+      username:{
+        required
+      },
+      password:{
+        required
+      }
+    }
+  },
+  methods:{
+    ...mapActions(['signIn']),
+    async loginBtnClicked(){
+      if(!this.$v.credentials.$invalid){
+        if(!await this.signIn(this.credentials)) this.wrongCredentials = true
+        else {
+          this.wrongCredentials = false
+          this.resetForm()
+          }
+      }
+      
+    },
+    resetForm(){
+      this.credentials.username = null
+      this.credentials.password = null
+    }
+  }
+};
 </script>
-
-<style>
-
-</style>
