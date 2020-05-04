@@ -16,10 +16,15 @@ const route = '/register'
 
     router.post(route, profilePictureUpload.single('profile-picture'),async (req, res) => {
 
+        console.log('stigao')
         //validating the data before adding it to the database
         const { error } = UserValidationSchema.validate(req.body)
+        console.log(req.body)
         if (error) {
-            res.status(400).send({ error: error.details[0].message })
+            res.status(400).json({
+                error: error.details[0].message,
+                successful: false
+            })
             return
         }
         else {
@@ -54,7 +59,10 @@ const route = '/register'
                 res.send({ successful: true })
             }).catch(err => {
                 //if insertion is unsuccessful we send the error back to the client
-                res.status(400).send({ error: err })
+                res.status(400).json({
+                    successful: false,
+                    error: err
+                })
             })
         }
 })
