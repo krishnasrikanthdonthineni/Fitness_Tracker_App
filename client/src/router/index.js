@@ -34,7 +34,12 @@ const routes = [
     path: '/BmiCalculator',
     name: 'BmiCalculator',
     component: ()=> import('../views/BmiCalculator.vue')
-  }
+  },
+  {
+    path: '/FindPeople',
+    name: 'FindPeople',
+    component: ()=> import('../views/FindPeople.vue')
+  },
 ]
 
 const router = new VueRouter({
