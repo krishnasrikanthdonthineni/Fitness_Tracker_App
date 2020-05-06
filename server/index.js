@@ -1,7 +1,7 @@
 require('dotenv/config')
 require('./data-access/mongooseSetup')
 
-const express = require('express');
+const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 
@@ -18,5 +18,5 @@ app.use('/', require('./controller/register'))
 app.use('/', require('./controller/login'))
 
 app.listen(process.env.port || 5000,() => {
-    console.log('Server is up on port ${process.env.port || 5000}`')
+    console.log(`Server is up on port ${process.env.port || 5000}`)
 })

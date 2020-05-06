@@ -16,10 +16,10 @@ const route = '/register'
 
     router.post(route, profilePictureUpload.single('profile-picture'),async (req, res) => {
 
-        console.log('stigao')
+       
         //validating the data before adding it to the database
         const { error } = UserValidationSchema.validate(req.body)
-        console.log(req.body)
+      
         if (error) {
             res.status(400).json({
                 error: error.details[0].message,

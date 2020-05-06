@@ -1,3 +1,5 @@
+import axios from '../../axiosConfig'
+
 const state = {
     inputs: [
        
@@ -34,20 +36,16 @@ const getters = {
 }
 
 const actions = {
-    addFoodInput: ({ commit }, input)=>{
+    addInput: ({ commit }, input)=>{
         //for adding a new input
-        commit('ADD_INPUT', input)
-        return true
-    },
-    addExcerciseInput: ({ commit }, input)=>{
-        //for adding a new input
-        commit('ADD_INPUT', input)
-        return true
-    },
-    addBmiInput: ({ commit }, input)=>{
-        //for adding a new input
-        commit('ADD_INPUT', input)
-        return true
+        if (getters.isLoggedIn) {
+            input.user_id = getters.getCurrentUserId
+            return axios.post('/api/inputs', input).then(({ data }) => {
+                commit('ADD_INPUT', data)
+                return data
+            }).catch(() => false)
+        }
+        else return false
     }
 }
 

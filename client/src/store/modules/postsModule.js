@@ -1,70 +1,23 @@
-import store from '../index'
+import store from '../../axiosConfig'
 
 const state = {
-    //Some static data to fill the posts 
-    posts: [{
-        _id: 'sdasdasdasdd',
-        user: {
-            _id: 'daadsasdaff',
-            username: 'johndoe',
-            firstName: 'John',
-            lastName: 'Doe',
-            profilePicture: ''
+    publicPosts: [],
+    friendsPosts: [],
+    privatePosts: [],
 
-        },
-        input:{
-            type: 'ExcerciseInput',
-            name: 'Push ups',
-            value: 500
-        },
-        title: 'Just did 25 push ups',
-        text: 'And burned 500 calories',
-        postedAt: Date.now,
-        visibility: 'Private',
-        likes: []
+    publicPostsPageStatus: {
+        nextPage: 1,
+        hasMorePages: true
     },
-    {
-        _id: 'sdasdasdasd2',
-        user: {
-            _id: 'daadsasdaff',
-            username: 'johndoe',
-            firstName: 'John',
-            lastName: 'Doe',
-            profilePicture: ''
-
-        },
-        input:{
-            type: 'ExcerciseInput',
-            name: 'Sit ups',
-            value: 800
-        },
-        title: 'Just did 100 sit ups',
-        text: 'And burned 800 calories',
-        postedAt: Date.now,
-        visibility: 'Friends',
-        likes: []
+    friendsPostPageStatus: {
+        nextPage: 1,
+        hasMorePages: true
     },
-    {
-        _id: 'sdasdasdasd3',
-        user: {
-            _id: 'daadsasdaff',
-            username: 'johndoe',
-            firstName: 'John',
-            lastName: 'Doe',
-            profilePicture: ''
-
-        },
-        input:{
-            type: 'FoodInput',
-            name: 'Double hamburger',
-            value: 2000
-        },
-        title: 'Just ate a double hamburger',
-        text: 'And gained 2000 calories in the process',
-        postedAt: Date.now,
-        visibility: 'Public',
-        likes: ['asdasdasdfas']
-    }],
+    privatePostsPageStatus: {
+        nextPage: 1,
+        hasMorePages: true
+    },
+   
 
     postVisibility: [
         "Private",
@@ -92,27 +45,61 @@ const state = {
 }
 
 const getters = {
-    getPosts: state => state.posts,
+    getPosts: state => postVisibilityFilterOption => {
+        if(postVisibilityFilterOption === 'Public posts') return state.publicPosts
+        else if(postVisibilityFilterOption === 'Friends posts') return state.friendsPosts
+        else if(postVisibilityFilterOption === 'My posts') return state.privatePosts
+        else return [...state.publicPosts, ...state.friendsPosts, ...state.privatePosts].sort((a, b)=> a.postedAt > b.postedAt ? -1 : b.postedAt > a.postedAt ? 1 : 0)
+    },
     getPostVisibility: state => state.postVisibility,
     getFeedFilterOptions: state => state.feedFilterOptions
 }
 
 const actions = {
-    addPost: ({ commit }, post) => {
+    addPost: ({ commit , getters }, post) => {
         //called when adding the post
-        //post request to api will be added later
-        commit('ADD_POST', post)
-        return true 
+        if (getters.isLoggedIn) {
+            post.user = getters.getCurrentUserId
+            return axios.post('/api/posts', post).then(({ data }) => {
+                commit('ADD_POST', data)
+                return true
+            }).catch(() => false)
+        }
+        else return false
+
     },
     likeDislikePost: ({ commit }, { _id }) => {
         //called when post is liked or disliked
         //post request to api will be added later
-        commit('LIKE_DISLIKE_POST', _id) 
+        console.log('WIP')
+        console.log(commit, _id)
+    },
+    //if there are more posts available fetches them from server
+    fetchPublicPosts: ({ commit, state }) => {
+        if (state.publicPostsPageStatus.hasMorePages) {
+            return axios.get('/api/posts/public', {
+                params: {
+                    page: state.publicPostsPageStatus.nextPage,
+                    limit: 10
+                }
+            }).then(({ data }) => {
+                commit('APPEND_PUBLIC_POSTS', data)
+                return true
+            }).catch(() => false)
+        }
+        else return null
     }
 }
 
 const mutations = {
-    ADD_POST: (state, post) => state.posts.push(post),
+    ADD_POST: (state, post) => state.privatePosts.push(post),
+    APPEND_PUBLIC_POSTS: (state, { hasNextPage, docs }) => {
+        if (hasNextPage) state.publicPostsPageStatus.nextPage++
+        state.publicPostsPageStatus.hasMorePages = hasNextPage
+
+        state.publicPosts = [...state.publicPosts, ...docs]
+    }
+    /*
     LIKE_DISLIKE_POST: (state, _id) => {
         var post = state.posts.find(post => post._id === _id)
         if (!post.likes.includes(store.getters.getCurrentUser._id))
@@ -120,6 +107,8 @@ const mutations = {
         else post.likes.pop(post.likes.findIndex(id => id === store.getters.getCurrentUser._id))
         post.likedByCurrentUser = !post.likedByCurrentUser
     },
+    console.log('WIP)
+} */
 }
 
 export default {
