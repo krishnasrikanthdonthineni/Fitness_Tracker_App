@@ -16,9 +16,9 @@ const routes = [
   { path: '/login', name: 'Login', component: Login },
   { path: '/signup', name: 'Signup', component: Signup },
   {
-    path: '/User',
-    name: 'User',
-    component: ()=> import('../views/User.vue')
+    path: '/AccountSettings',
+    name: 'AccountSettings',
+    component: ()=> import('../views/AccountSettings.vue')
   },
   
   {

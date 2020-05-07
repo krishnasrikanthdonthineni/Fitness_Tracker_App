@@ -63,7 +63,7 @@
             <span>{{isLoggedIn ? getCurrentUserFullName : ''}}</span>
           </a>
           <div class="navbar-dropdown">
-            <router-link to="/User" class="navbar-item">My profile</router-link>
+            <router-link to="/AccountSettings" class="navbar-item">My profile</router-link>
             <a class="navbar-item" @click="SignOut()">Sign out</a>
           </div>
         </div>
