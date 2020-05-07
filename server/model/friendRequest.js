@@ -8,7 +8,7 @@ const friendRequestSchema = new Schema({
         type: Schema.ObjectId,
         ref: "User"
     },
-    target:{
+    recipient :{
         required: true,
         type: Schema.ObjectId,
         ref: "User"
@@ -20,6 +20,6 @@ const friendRequestSchema = new Schema({
 
 })
 
-const FriendRequest = mongoose.model("FriendRequest", bmiSchema)
+const FriendRequest = mongoose.model("FriendRequest", friendRequestSchema)
 
 module.exports = FriendRequest
