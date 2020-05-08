@@ -1,6 +1,6 @@
 <template>
   <div class="section">
-    <div class="container sign-up-container">
+    <div class="container ">
       
       <div class="panel">
         <p class="panel-heading">Sign In</p>
@@ -100,3 +100,10 @@ export default {
   }
 };
 </script>
+<style>
+
+.w-100,
+.field {
+  width: 100%;
+}
+</style>

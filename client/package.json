@@ -18,7 +18,8 @@
     "vue-infinite-loading": "^2.4.5",
     "vue-router": "^3.1.5",
     "vue-scrollto": "^2.17.1",
-    "vuex": "^3.1.2"
+    "vuex": "^3.1.2",
+    "vuex-multi-tab-state": "^1.0.13"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.2.0",
