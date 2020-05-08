@@ -40,6 +40,23 @@ const routes = [
     name: 'FindPeople',
     component: ()=> import('../views/FindPeople.vue')
   },
+  {
+    path: '/MyInputs',
+    name: 'MyInputs',
+    component: ()=> import('../views/MyInputs.vue')
+  },
+  {
+    path: '/FriendList',
+    name: 'FriendList',
+    component: ()=> import('../views/FriendList.vue')
+  },
+  {
+    path: '/User/:username',
+    name: 'UserProfile',
+    component: ()=> import('../views/UserProfile.vue'),
+    props: true
+  }
+
 ]
 
 const router = new VueRouter({

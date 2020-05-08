@@ -1,17 +1,17 @@
 <template>
   <div class="level">
     <div class="level-left">
-      <router-link to="/">{{request.sender.firstName}} {{request.sender.lastName}}</router-link>
+      <router-link :to="`/User/${request.sender.username}`">{{request.sender.firstName}} {{request.sender.lastName}}</router-link>
     </div>
     <div class="level-right">
         <div class="level-item">
-        <a class="button is-white has-text-success" @click="respondedToFriendRequest(true)">
+        <a class="button is-white has-text-success" @click="respondedToFriendRequest(true)" :disabled="!ableToRespond">
           <span class="icon">
             <i class="fas fa-check"></i>
           </span>
         </a>
 
-        <button class="button is-white has-text-danger" @click="respondedToFriendRequest(false)">
+        <button class="button is-white has-text-danger" @click="respondedToFriendRequest(false)"  :disabled="!ableToRespond">
           <span class="icon">
             <i class="fas fa-times"></i>
           </span>
@@ -31,11 +31,19 @@ export default {
       type: Object
     }
      },
+      data(){
+    return{
+      ableToRespond: true
+    }
+  },
   methods:{
     ...mapActions(['respondToFriendRequest']),
     //on btn click accepts or rejects friend request
-    respondedToFriendRequest(accepted){
-      this.respondToFriendRequest({request_id: this.request._id, accepted: accepted})
+     async respondedToFriendRequest(accepted){
+      if(this.ableToRespond){
+      this.ableToRespond = false
+      if( await !this.respondToFriendRequest({request_id: this.request._id, accepted: accepted})) this.ableToRespond = true
+      }
     }
   }
 };

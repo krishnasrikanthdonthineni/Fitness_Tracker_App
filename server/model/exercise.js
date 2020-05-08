@@ -2,9 +2,9 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 //schema for excercise object
-const excerciseSchema = new Schema({
+const exerciseSchema = new Schema({
     
-    excerciseType:{
+    exerciseType:{
         type: String,
         default: null
     },
@@ -14,6 +14,6 @@ const excerciseSchema = new Schema({
     }
 })
 
-const Input = mongoose.model("ExcerciseInput", excerciseSchema)
+const Input = mongoose.model("ExerciseInput", exerciseSchema)
 
 module.exports = Input 

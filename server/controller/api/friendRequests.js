@@ -100,7 +100,10 @@ router.post(`${route}/respond`, authorization, async (req, res) => {
                         await FriendRequest.deleteOne({
                             _id: friendRequest._id
                         }).exec()
-                        res.json( friendship )
+                        res.json(await Friendship.findById(friendship._id).populate({
+                            path: 'personA',
+                            select: 'username firstName lastName email picture_id'
+                        }).lean().exec())
                     }
                     else return res.sendStatus(403)
                 }

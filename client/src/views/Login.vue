@@ -3,7 +3,7 @@
     <div class="container sign-up-container">
       
       <div class="panel">
-        <p class="panel-heading">Sign up</p>
+        <p class="panel-heading">Sign In</p>
         <div class="panel-block">
           <div class="field">
             <label class="label">Username</label>

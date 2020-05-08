@@ -175,6 +175,26 @@ APPEND_PRIVATE_POSTS: (state, { hasNextPage, docs }) => {
     },
     console.log('WIP)
 } */
+
+,
+CLEAR_DATA: (state) => {
+    state.publicPosts = []
+    state.friendsPosts = []
+    state.privatePosts = []
+
+    state.publicPostsPageStatus = {
+        nextPage: 1,
+        hasMorePages: true
+    }
+    state.friendsPostsPageStatus = {
+        nextPage: 1,
+        hasMorePages: true
+    }
+    state.privatePostsPageStatus = {
+        nextPage: 1,
+        hasMorePages: true
+    }
+}
 }
 
 export default {

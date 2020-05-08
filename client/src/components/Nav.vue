@@ -64,6 +64,7 @@
           </a>
           <div class="navbar-dropdown">
             <router-link to="/AccountSettings" class="navbar-item">My profile</router-link>
+               <router-link to="/MyInputs" class="navbar-item">My inputs</router-link>
             <a class="navbar-item" @click="SignOut()">Sign out</a>
           </div>
         </div>

@@ -5,6 +5,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 
+require('./data-access/mongooseSetup')
 //app setup
 const app = express()
 

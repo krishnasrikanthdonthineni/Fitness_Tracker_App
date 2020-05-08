@@ -27,12 +27,27 @@ router.get(`${route}`, async (req, res) => {
                 ]
 
             })
-            users.select("_id username email firstName lastName picture_id").sort('+firstName +lastName')
+            users.select(" username email firstName lastName picture_id registered").sort('+firstName +lastName')
             return res.json(await users.lean().exec())
         }
         catch{
             return res.sendStatus(500)
         }
+})
+
+// @desc Retrieves single user
+// @route GET /users/:username
+router.get(`${route}/:username`, async (req, res) => {
+    try {
+        var user = await User.findOne({
+            username: req.params.username
+        }).select("username email firstName lastName picture_id registered").lean().exec()
+        if(user) return res.json(user)
+        else return res.sendStatus(404)
+    }
+    catch{
+        return res.sendStatus(500)
+    }
 })
 
 // @desc Changes users password
@@ -67,9 +82,11 @@ router.put(`${route}/:userId/changeProfilePicture`, [authorization, profilePictu
                 var oldPicture_id = user.picture_id
                 user.picture_id = req.file.id
                 await user.save()
-                await gridfs.then(gfs=>{
-                    gfs.remove({ _id: new mongoose.mongo.ObjectId(oldPicture_id)})
-                })
+                if (oldPicture_id.toString() !== "5e7dfa91af72c22a0492241e") {
+                    await gridfs.then(gfs => {
+                        gfs.remove({ _id: new mongoose.mongo.ObjectId(oldPicture_id) })
+                    })
+                }
                 return res.json(user.toObject())
             }
             catch (err) {
@@ -96,11 +113,17 @@ router.get(`${route}/:user_id/friends`, authorization, async (req, res)=>{
                     personB: user_id
                 }
             ]
+        }).populate({
+            path: 'personA',
+            select: 'username firstName lastName email picture_id'
+        }).populate({
+            path: 'personB',
+            select: 'username firstName lastName email picture_id'
         }).lean().exec()
         var friends = []
         //this is used so we dont return our own id 
         friendships.forEach(fsp => {
-            if(fsp.personA !== user_id) friends.push(fsp.personA)
+            if(fsp.personA._id.toString() !== user_id) friends.push(fsp.personA)
             else friends.push(fsp.personB)
         })
         return res.json(friends)

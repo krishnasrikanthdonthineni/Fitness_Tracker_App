@@ -23,6 +23,8 @@ const actions = {
             sessionStorage.setItem('user', JSON.stringify(data.user))
             commit('SIGN_IN_USER', data)
             axios.defaults.headers['auth-token'] = data.token
+            dispatch('fetchFriends')
+            dispatch('fetchInputs')
             dispatch('startFetchingReceivedFriendRequests')
             router.push('/')
             return true
@@ -39,6 +41,7 @@ const actions = {
         sessionStorage.removeItem('user')
         axios.defaults.headers['auth-token'] = ''
         dispatch('stopFetchingReceivedFriendRequests')
+        commit('CLEAR_DATA')
         commit('SIGN_OUT_USER')
         router.push('/SignIn')
     },
