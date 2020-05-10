@@ -1,5 +1,6 @@
-import store from '../../axiosConfig'
+
 import moment from 'moment'
+import axios from '../../axiosConfig'
 
 const state = {
     publicPosts: [],
@@ -161,9 +162,10 @@ APPEND_FRIENDS_POSTS: (state, { hasNextPage, docs }) => {
 
     state.friendsPosts = [...state.friendsPosts, ...docs]
 },
-APPEND_PRIVATE_POSTS: (state, { hasNextPage, docs }) => {
+APPEND_PRIVATE_POSTS: (state, { hasNextPage , docs }) => {
     if (hasNextPage) state.privatePostsPageStatus.nextPage++
     state.privatePostsPageStatus.hasMorePages = hasNextPage
+    state.privatePosts = [...state.privatePosts, ...docs]
 }
     /*
     LIKE_DISLIKE_POST: (state, _id) => {

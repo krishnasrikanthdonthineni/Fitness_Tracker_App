@@ -50,7 +50,7 @@
         <div class="navbar-item" v-if="!isLoggedIn">
           <div class="buttons">
             <router-link to="/Login" class="button is-primary">Sign in</router-link>
-            <router-link to="/SignUp" class="button is-primary">Sign up</router-link>
+            <router-link to="/Signup" class="button is-primary">Sign up</router-link>
           </div>
         </div>
         <div class="navbar-item" v-if="isLoggedIn">
@@ -66,7 +66,7 @@
           <div class="navbar-dropdown">
             <router-link to="/AccountSettings" class="navbar-item">My profile</router-link>
                <router-link to="/MyInputs" class="navbar-item">My inputs</router-link>
-            <a class="navbar-item" @click="SignOut()">Sign out</a>
+            <a class="navbar-item" @click="signOut()">Sign out</a>
           </div>
         </div>
       </div>

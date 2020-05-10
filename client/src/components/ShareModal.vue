@@ -21,7 +21,7 @@
             </div>
           </div>
           <div class="panel-block">
-            <div class="field" w-100>
+            <div class="field w-100">
               <label class="label">Title:</label>
               <div class="control">
                 <input
@@ -34,7 +34,7 @@
             </div>
           </div>
           <div class="panel-block">
-            <div class="field" w-100>
+            <div class="field w-100">
               <label class="label">Text:</label>
               <div class="control">
                 <textarea class="textarea" placeholder="Textarea" v-model="post.text"></textarea>

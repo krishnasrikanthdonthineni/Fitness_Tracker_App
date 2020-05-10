@@ -24,34 +24,8 @@ router.post(route, async (req, res) => {
         {
             email: req.body.email
         }]
-    })// @desc Returns users friends
-    // @route GET /users/:userId/friends
-    router.get(`${route}/:user_id/friends`, authorization, async (req, res)=>{
-        var user_id = req.params.user_id
-        if(user_id === req.user._id){
-            var friendships = await Friendship.find({
-                $or:[
-                    {
-                        personA: user_id
-                    },
-                    {
-                        personB: user_id
-                    }
-                ]
-            }).lean().exec()
-            var friends = []
-            //this is used so we dont return our own id 
-            friendships.forEach(fsp => {
-                if(fsp.personA !== user_id) friends.push(fsp.personA)
-                else friends.push(fsp.personB)
-            })
-            return res.json(friends)
-        }
-        else return res.sendStatus(403)
-    })
+    }).lean().exec()
     
-    
-
     if(await user && await password){
 
     //checks password with hashed pwd stored in db
@@ -66,11 +40,13 @@ router.post(route, async (req, res) => {
     //adds the token to the header
     res.header('auth-token', token)
 
+    
+
     //sends the token back as well as user data
     return res.send({ user: user, token: token })
+    }
+    else return res.status(400).send({ error: "wrong password" })
 
-}
-else return res.status(400).send({ error: "wrong password" })
 })
 
-module.exports = router 
+module.exports = router

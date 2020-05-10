@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import ExerciseInputComponent from './ExcerciseInputComponent'
+import ExerciseInputComponent from './ExerciseInputComponent'
 import FoodInputComponent from './FoodInputComponent'
 export default {
   name: "FoodAndExerciseInput",

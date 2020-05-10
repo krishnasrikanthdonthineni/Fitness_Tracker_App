@@ -121,7 +121,7 @@ export default {
       },
       input: {
         _id:null,
-        type: "BMIInput",
+        type: "BmiInput",
         name:'BMI',
         value: null,
        input_data:{
@@ -198,7 +198,7 @@ export default {
     }
   },
   mounted() {
-    this.chartData = this.bmiChartData;
+    this.chartData = this.bmiDefaultData;
      },
   computed:{
     //used so we can have nice graph, returns matrix of values 

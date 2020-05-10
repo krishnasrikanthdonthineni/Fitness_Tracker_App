@@ -11,7 +11,7 @@
       <label for class="label">Type of exercise:</label>
       <div class="control">
         <div class="select w-100">
-          <select class="w-100" v-model="input.input_data.excerciseType">
+          <select class="w-100" v-model="input.input_data.exerciseType">
             <option v-for="type in getExerciseTypes" :key="type" :value="type">{{type}}</option>
           </select>
         </div>
@@ -135,7 +135,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["addInput"]),
+    ...mapActions(["addInput",  'fetchExerciseTypes']),
     async addButtonClick() {
        //Function is triggered once Add to your daily exercise is clicked
       if (!this.$v.input.$invalid) {
