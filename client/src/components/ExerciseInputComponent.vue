@@ -7,6 +7,7 @@
         <p v-if="!$v.input.name.required" class="help is-danger">Required</p>
       </div>
     </div>
+    <!--
       <div class="field w-100">
       <label for class="label">Type of exercise:</label>
       <div class="control">
@@ -16,7 +17,18 @@
           </select>
         </div>
       </div>
-    </div>
+    </div>-->
+  <!-- This is a component found on buefy -->
+    <b-field label="Type of exercise" class="w-100">
+      <b-autocomplete
+        v-model="exerciseTypeInput"
+        :data="getFilteredExerciseTypes"
+        placeholder="What exercise did you do?"
+        @select="selectedExerciseType"
+        :open-on-focus="true"
+      />
+
+    </b-field>
     <div class="field">
       <label for class="label">For how long:</label>
     </div>
@@ -86,6 +98,7 @@ import { mapGetters, mapActions } from "vuex" ;
 import ShareModal from "./ShareModal";
 import InfoModal from "./InfoModal";
 import { required, numeric } from "vuelidate/lib/validators";
+
 export default {
   name: "ExerciseInputComponent",
    components: {
@@ -94,9 +107,14 @@ export default {
   },
   computed: {
     ...mapGetters(["getPostVisibility","getExerciseTypes"]),
+    getFilteredExerciseTypes(){
+      return this.getExerciseTypes.filter(et => et.toLowerCase().indexOf(this.exerciseTypeInput.toLowerCase()) >= 0)
+    }
   },
   data() {
     return {
+       //exerciseTypeInput is used to store text we type in autocomplete
+      exerciseTypeInput: '',
       input: {
         _id:null,
         type: "ExerciseInput",
@@ -136,6 +154,10 @@ export default {
   },
   methods: {
     ...mapActions(["addInput",  'fetchExerciseTypes']),
+    //sets selected type
+    selectedExerciseType(selectedType){
+      this.input.input_data.exerciseType = selectedType
+    },
     async addButtonClick() {
        //Function is triggered once Add to your daily exercise is clicked
       if (!this.$v.input.$invalid) {
@@ -175,6 +197,9 @@ export default {
       this.shareModalVisible = false
       this.clearForm()
     }
+  },
+   mounted(){
+    this.fetchExerciseTypes()
   }
 };
 </script>

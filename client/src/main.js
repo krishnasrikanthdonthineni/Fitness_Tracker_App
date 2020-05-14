@@ -8,8 +8,10 @@ import VueGoogleCharts from 'vue-google-charts'
 import VueScrollTo  from 'vue-scrollto'
 import Vuelidate from 'vuelidate'
 import VModal from 'vue-js-modal'
+import Buefy from 'buefy'
+import 'buefy/dist/buefy.css'
 
-
+Vue.use(Buefy)
 Vue.use(VueGoogleCharts)
 Vue.use(VueScrollTo)
 Vue.use(Vuelidate)
